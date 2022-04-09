@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../BusinessLogic/bloc/homepage_bloc.dart';
+import '../../Data/Repository/homepage_repo.dart';
+import '../Screens/HomePage/UI/homepage.dart';
 
 class RouteGenerator {
-  final HomepageBloc _homePageBloc = HomepageBloc(HomePageRepo());
+  final HomepageBloc _homepageBloc = HomepageBloc(HomePageRepo());
 
   Route<dynamic> generateRoute(RouteSettings settings) {
     final args = settings.arguments;
@@ -10,25 +15,10 @@ class RouteGenerator {
       case '/':
         return MaterialPageRoute(
           builder: (_) => BlocProvider<HomepageBloc>.value(
-            value: _homePageBloc,
-            child: const HomePage(),
+            value: _homepageBloc,
+            child: const MyHomePage(title: "GET API & BLOC"),
           ),
         );
-
-      case '/dashboard':
-        final arg = settings.arguments as List<HomePageMode>;
-        if (arg.isNotEmpty) {
-          return MaterialPageRoute(
-            builder: (_) => BlocProvider<DashboardBloc>.value(
-              value: _dashboardBloc,
-              child: DashboardPage(
-                animals: arg,
-              ),
-            ),
-          );
-        } else {
-          return _errorRoute();
-        }
 
       default:
         return _errorRoute();
