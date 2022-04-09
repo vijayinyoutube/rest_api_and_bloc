@@ -1,66 +1,63 @@
 import 'dart:convert';
 
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-class HomePageModel {
+class HomepageModel {
   final String name;
-  Object address;
-  Object company;
-  HomePageModel({
-    required this.name,
-    required this.address,
-    required this.company,
-  });
+  final String address;
+  final String company;
 
-  HomePageModel copyWith({
+  HomepageModel(
+    this.name,
+    this.address,
+    this.company,
+  );
+
+  HomepageModel copyWith({
     String? name,
-    Object? address,
-    Object? company,
+    String? address,
+    String? company,
   }) {
-    return HomePageModel(
-      name: name ?? this.name,
-      address: address ?? this.address,
-      company: company ?? this.company,
+    return HomepageModel(
+      name ?? this.name,
+      address ?? this.address,
+      company ?? this.company,
     );
   }
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
+    return {
       'name': name,
-      'address': address.toMap(),
-      'company': company.toMap(),
+      'address': address,
+      'company': company,
     };
   }
 
-  factory HomePageModel.fromMap(Map<String, dynamic> map) {
-    return HomePageModel(
-      name: map['name'] as String,
-      address: Object.fromMap(map['address'] as Map<String,dynamic>),
-      company: Object.fromMap(map['company'] as Map<String,dynamic>),
+  factory HomepageModel.fromMap(Map<String, dynamic> map) {
+    return HomepageModel(
+      map['name'] ?? '',
+      map['address']['city'] ?? '',
+      map['company']['name'] ?? '',
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory HomePageModel.fromJson(String source) => HomePageModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory HomepageModel.fromJson(String source) =>
+      HomepageModel.fromMap(json.decode(source));
 
   @override
-  String toString() => 'HomePageModel(name: $name, address: $address, company: $company)';
+  String toString() =>
+      'HomepageModel(name: $name, address: $address, company: $company)';
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
-    return other is HomePageModel &&
-      other.name == name &&
-      other.address == address &&
-      other.company == company;
+
+    return other is HomepageModel &&
+        other.name == name &&
+        other.address == address &&
+        other.company == company;
   }
 
   @override
   int get hashCode => name.hashCode ^ address.hashCode ^ company.hashCode;
 }
-
-
-
-
-
