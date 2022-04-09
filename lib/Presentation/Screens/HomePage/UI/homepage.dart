@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../BusinessLogic/bloc/homepage_bloc.dart';
 import '../../../../Data/Models/homepage_model.dart';
+import '../../../Components/shimmer.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
@@ -25,6 +26,8 @@ class _MyHomePageState extends State<MyHomePage> {
         builder: (context, state) {
           if (state is HomepageLoaded) {
             return buildLoadedLayout(state.data);
+          } else if (state is HomepageLoading) {
+            return buildLoadingLayout();
           } else {
             return buildInitialLayout(context);
           }
@@ -39,6 +42,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 BlocProvider.of<HomepageBloc>(context).add(LoadData()),
             child: const Text("Load Data")),
       );
+
+  Widget buildLoadingLayout() => ListView.separated(
+      padding: const EdgeInsets.all(8),
+      itemCount: 10,
+      separatorBuilder: (BuildContext context, int index) => const Divider(),
+      itemBuilder: (BuildContext context, int index) {
+        return const ShimmerWidget();
+      });
 
   Widget buildLoadedLayout(List<HomepageModel> data) => ListView.builder(
         itemCount: data.length,
