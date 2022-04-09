@@ -14,7 +14,6 @@ class HomePageRepo extends HomePageRepository {
   Future<List<HomepageModel>> fetchDetails() async {
     final response = await http.get(Uri.parse("$baseUrl/users"));
     if (response.statusCode == 200) {
-      print(response.body);
       return (jsonDecode(response.body) as List)
           .map((p) => HomepageModel.fromMap(p))
           .toList();

@@ -15,9 +15,13 @@ class HomepageBloc extends Bloc<HomepageEvent, HomepageState> {
   HomepageBloc(this.homePageRepo) : super(HomepageInitial()) {
     on<HomepageEvent>((event, emit) async {
       if (event is LoadData) {
-        data = await homePageRepo.fetchDetails();
+        emit(HomepageLoading());
 
-        emit(HomepageLoaded(data));
+        await Future.delayed(const Duration(seconds: 2), () async {
+          data = await homePageRepo.fetchDetails();
+
+          emit(HomepageLoaded(data));
+        });
       }
     });
   }
