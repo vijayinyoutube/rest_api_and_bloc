@@ -4,3 +4,5 @@ part of 'homepage_bloc.dart';
 abstract class HomepageEvent {}
 
 class LoadData extends HomepageEvent {}
+
+class NavBack extends HomepageEvent {}

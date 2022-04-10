@@ -51,12 +51,25 @@ class _MyHomePageState extends State<MyHomePage> {
         return const ShimmerWidget();
       });
 
-  Widget buildLoadedLayout(List<HomepageModel> data) => ListView.builder(
-        itemCount: data.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(data[index].name.toString()),
-          );
-        },
+  Widget buildLoadedLayout(List<HomepageModel> data) => Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              itemCount: data.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(data[index].name.toString()),
+                );
+              },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: ElevatedButton(
+                onPressed: () =>
+                    BlocProvider.of<HomepageBloc>(context).add(NavBack()),
+                child: const Text("Back")),
+          )
+        ],
       );
 }
