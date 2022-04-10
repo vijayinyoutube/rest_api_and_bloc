@@ -22,6 +22,8 @@ class HomepageBloc extends Bloc<HomepageEvent, HomepageState> {
 
           emit(HomepageLoaded(data));
         });
+      } else if (event is NavBack) {
+        emit(HomepageInitial());
       }
     });
   }

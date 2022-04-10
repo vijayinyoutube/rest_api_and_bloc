@@ -16,7 +16,7 @@ class RouteGenerator {
         return MaterialPageRoute(
           builder: (_) => BlocProvider<HomepageBloc>.value(
             value: _homepageBloc,
-            child: const MyHomePage(title: "GET API & BLOC"),
+            child: const MyHomePage(title: "API & BLOC"),
           ),
         );
 
